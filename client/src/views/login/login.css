@@ -1,0 +1,125 @@
+.login {
+  height: 67.4vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background: url("https://cdn.wallpapersafari.com/75/12/h0ZRtp.jpg") 94% 79%
+    fixed;
+  background-size: cover;
+  font-family: "ABeeZee", sans-serif;
+}
+.loginTitle {
+  font-size: 46px;
+  position: absolute;
+  top: 205px;
+  left: 212px;
+  color: #411d36;
+  font-family: "WindSong", cursive;
+}
+.loginTitle::first-letter {
+  font-size: 76px;
+  position: absolute;
+  top: 202px;
+  left: 42px;
+  color: #411d36;
+  font-family: "WindSong", cursive;
+}
+
+.loginForm {
+  position: absolute;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  top: 295px;
+  left: 200px;
+  margin: 10px 0;
+}
+
+.loginForm > label {
+  margin: 8px 0;
+  color: #333;
+  font-size: 13px;
+}
+.loginInput {
+  padding: 5px;
+  border: none;
+  background-color: #fff;
+  border-radius: 5px;
+  width: 162px;
+}
+::placeholder {
+  font-size: 12px;
+}
+.loginInput:focus {
+  outline: none;
+}
+
+.loginButton,
+.loginRegisterButton {
+  margin-top: 11px;
+  cursor: pointer;
+  background-color: #411d36;
+  border: none;
+  color: #fff;
+  border-radius: 20px;
+  padding: 8px 10px;
+  font-size: 12px;
+  width: 173px;
+}
+.loginRegisterButton {
+  position: absolute;
+  top: 200px;
+  left: 30px;
+  width: 80px;
+}
+.loginButton:disabled {
+  cursor: not-allowed;
+  background-color: #9e8b99;
+}
+/*Media Queries*/
+
+@media (min-width: 1400px) {
+  .login {
+    height: 79.8vh;
+  }
+  .loginTitle {
+    font-size: 66px;
+    position: absolute;
+    top: 300px;
+    left: 236px;
+  }
+  .loginTitle::first-letter {
+    font-size: 86px;
+  }
+  .loginForm {
+    top: 400px;
+    left: 240px;
+    margin: 12px 0;
+  }
+
+  .loginForm > label {
+    margin: 12px 0;
+    font-size: 15px;
+  }
+  .loginInput {
+    padding: 10px 12px;
+  }
+  ::placeholder {
+    font-size: 14px;
+  }
+  .loginInput:focus {
+    outline: none;
+  }
+  .loginButton,
+  .loginRegisterButton {
+    margin-top: 12px;
+    padding: 11px 10px;
+    font-size: 14px;
+  }
+  .loginRegisterButton {
+    position: absolute;
+    top: 200px;
+    left: 30px;
+  }
+}
