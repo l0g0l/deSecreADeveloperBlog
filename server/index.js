@@ -6,11 +6,11 @@ import authRouter from './routes/auth.js'
 import categoriesRouter from './routes/categories.js'
 import usersRouter from './routes/users.js' 
 import postsRouter from './routes/posts.js'
-import uploadFiles from "./routes/uploadFiles.js"
 import dotenv from 'dotenv';
 dotenv.config({path:"variables.env"});
 import mongoose from 'mongoose'
 import multer from 'multer' // para poder subir archivos
+
 import path from 'path'
 
 const app = express()
@@ -34,21 +34,24 @@ mongoose.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-    .then(mongoose => console.log('Conectado MongoDB'))
-    .catch(e => { console.log(e) })
+.then(mongoose => console.log('Conectado MongoDB'))
+.catch(e => { console.log(e) })
 
-/* // Para poder subir archivos externos
+
+// para subir archivos
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null,'uploads/')
-    }, filename: (req, file, cb) => {
-        cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`)
-    }
-})
- const upload = multer({storage})
- app.post("/api/upload", upload.single("file"), (req, res) => {
-     res.status(200).json("El archivo se ha cargado correctamente")
- }) */
+      cb(null, "images");
+    },
+    filename: (req, file, cb) => {
+      cb(null, req.body.name);
+    },
+  });
+  
+  const upload = multer({ storage: storage });
+  app.post("/api/upload", upload.single("file"), (req, res) => {
+    res.status(200).json("File has been uploaded");
+  });
 
 
 //Agregar Router. El use soporta todos los verbos de express GET, POST, PATCH, PUT DELETE, de esta manera a la pag ppal, esta, agrega las rutas que hemos establecido en auth.js
@@ -65,17 +68,13 @@ app.use('/api/posts', postsRouter)
 //crea, muestra, borra categorías
 app.use('/api/categories', categoriesRouter)
 
-//guarda archivos externos
-app.use("/api/upload", uploadFiles);
-
-
 
 
 //si utilizo JS con imports y no requires, (commonjs) añadir esta línea para que no haya conflicto
 const __dirname = path.resolve();
 
 //hacer los estáticos públicos
-app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+app.use("/images", express.static(path.join(__dirname, "/images")));
 app.use(express.static(path.join(__dirname, '../client/build')));
 
 

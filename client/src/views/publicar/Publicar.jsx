@@ -40,12 +40,17 @@ const Publicar = () => {
             data.append("name", filename)
             data.append("file", file)
             nuevoPost.foto = filename
+            const config = { 
+                headers : {
+                  'Content-Type': 'multipart/form-data'
+                }
+              }
 
             try {
-                await axios.post("/upload", data)
+                await axios.post("/upload", data, config)
             }
             catch (e) {
-                console.log(e)
+                console.log(e, 'soy el catch del api/upload')
                 setMostrarError(true)
             }
         }
@@ -62,7 +67,8 @@ const Publicar = () => {
             }
         }
         catch (e) {
-            console.log(e)
+            
+            console.log(e, 'soy el catch de /posts')
             setMostrarError(true)
         }
     }
@@ -122,3 +128,5 @@ const Publicar = () => {
 }
 
 export default Publicar
+
+

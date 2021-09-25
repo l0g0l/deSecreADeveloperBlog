@@ -49,6 +49,7 @@ label {
 
 .content-select select {
   display: inline-block;
+  width: 230px;
   cursor: pointer;
   padding: 0px 10px;
   height: 28px;
@@ -77,7 +78,7 @@ dos bordes con color y que giramos con transform: rotate(-45deg);
 
 .content-select i {
   position: absolute;
-  left: 295px;
+  left: 355px;
   top: 13px;
   width: 0;
   height: 0;

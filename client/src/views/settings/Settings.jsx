@@ -9,7 +9,7 @@ import './settings.css'
 const Settings = () => {
 
     const { user, dispatch } = useContext(Context);
-    // const publico = "http://localhost:5000/images"
+    const publico = "http://localhost:5000/images"
 
     const [file, setFile] = useState(null)
     const [usuario, setUsuario] = useState("")
@@ -67,16 +67,17 @@ const Settings = () => {
                     <span className="settingsDeleteTitle">Eliminar cuenta</span>
 
                 </div>
-                <form action="" className="settingsForm" onSubmit={handleSubmit}>
+                <form action="" className="settingsForm" onSubmit={handleSubmit} enctype="multipart/form-data">
                     <label htmlFor="">Foto de Perfil</label>
 
                     <div className="settingsProfilePicture">
-                        <img className="settingsImg" src="img/profile.jpg" alt="" />
+                        <img className="settingsImg" src={file ? URL.createObjectURL(file) : publico +user.fotoPerfil} alt="" />
                         <label htmlFor="fileInput">
                             <i className="settingsProfilePictureIcon far fa-user"></i>
                         </label>
                         <input
                             type="file"
+                            name="avatar"
                             id="fileInput"
                             style={{ display: "none" }}
                             onChange={e => setFile(e.target.files[0])}
