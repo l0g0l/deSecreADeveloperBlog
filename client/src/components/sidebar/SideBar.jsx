@@ -11,6 +11,7 @@ const SideBar = () => {
         const muestraCateg = async () => {
             const resultCateg = await axios.get("/categories")
             setCateg(resultCateg.data)
+          
         }
 
         muestraCateg()
