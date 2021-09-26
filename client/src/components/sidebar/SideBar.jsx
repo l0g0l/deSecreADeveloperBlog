@@ -21,7 +21,7 @@ const SideBar = () => {
                 <span className="sidebarTitle">QUIEN SOY</span>
                 <img src="/img/aboutMHuert.jpg" alt="mi foto" className="sidebarImg" />
                 <div className="sidebarContainer-txt">
-                    <p>Todo llega..., me decía mi hermano (mi principal apoyo en esta locura del Desarrollo. Gracias Bro &#9829;), mis amigos, profesores y bueno, aquí estoy, 500h de Bootcamp, tropecientasmil entre Udemys y horas delante de la pantalla, sin olvidar mi trayectoria de secretaria y empresaria, ¡ah! , también soy madre de un adolescente de 17 comenzando su vida y yo por la mitad de la mia con 43 años. En este blog me gustaría contaros mis experiencias en este nuevo mundo Tech, cosas de mi huerto, en definitiva, lo que se me vaya ocurriendo. ¡Gracias por leerme!</p>
+                    <p>Todo llega!..., me decía mi hermano (mi principal apoyo en esta locura del Desarrollo. Gracias Bro &#9829;), mis amigos, profesores y bueno, aquí estoy, 500h de Bootcamp, tropecientasmil entre Udemys y horas delante de la pantalla, sin olvidar mi trayectoria de secretaria y empresaria, ¡ah! , también soy madre de un adolescente de 17 comenzando su vida y yo por la mitad de la mia con 43 años. En este blog me gustaría contaros mis experiencias en este nuevo mundo Tech, cosas de mi huerto, en definitiva, lo que se me vaya ocurriendo. ¡Gracias por leerme!</p>
                 </div>
             </div>
             <div className="sidebarItem">
