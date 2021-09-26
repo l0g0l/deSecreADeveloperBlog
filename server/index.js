@@ -67,12 +67,18 @@ const __dirname = path.resolve();
 
 //hacer los estáticos públicos
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.use(express.static(path.join(__dirname, '/client/build')));
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/client/build")));
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-});
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+  );
+} else {
+  app.get("/", (req, res) => {
+    res.send("Hola desde el back");
+  });
+}
 
 // arranca el servidor
 app.listen(port, host, () => {

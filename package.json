@@ -15,12 +15,20 @@
     "path": "^0.12.7"
   },
   "scripts": {
-    "start": "cd server && node index.js ",
+    "start": "node server/index.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "dev": "nodemon index.js "
   },
   "type": "module",
   "devDependencies": {
     "nodemon": "^2.0.12"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/l0g0l/deSecreADeveloperBlog.git"
+  },
+  "bugs": {
+    "url": "https://github.com/l0g0l/deSecreADeveloperBlog/issues"
+  },
+  "homepage": "https://github.com/l0g0l/deSecreADeveloperBlog#readme"
 }
