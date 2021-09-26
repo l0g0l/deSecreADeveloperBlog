@@ -5,7 +5,7 @@ import { Context } from '../../context/Context.js'
 import './navbar.css'
 
 const TopBar = () => {
-    const publico = "http://localhost:5000/images"
+    // const publico = "http://localhost:5000/images"
     const { user, dispatch } = useContext(Context)
 
     const handleLogout = () => {
@@ -39,7 +39,7 @@ const TopBar = () => {
             <div className="topRight">
                 {user ?
                     <Link to="/configuracion">
-                        <img className="topImg" src={publico + user.fotoPerfil} alt="avatar" />
+                        <img className="topImg" src={ `img/uploads/${user.fotoPerfil}`} alt="avatar" />
                     </Link>
                     :
                     (

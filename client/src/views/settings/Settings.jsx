@@ -9,7 +9,7 @@ import './settings.css'
 const Settings = () => {
 
     const { user, dispatch } = useContext(Context);
-    const publico = "http://localhost:5000/images"
+    // const publico = "http://localhost:5000/images"
 
     const [file, setFile] = useState(null)
     const [usuario, setUsuario] = useState("")
@@ -40,10 +40,16 @@ const Settings = () => {
             const filename = Date.now() + file.name
             data.append("name", filename)
             data.append("file", file)
+            console.log(data, ' soy el data del multer')
             updateUsuario.fotoPerfil = filename
+            const config = { 
+                headers : {
+                  'Content-Type': 'multipart/form-data'
+                }
+              }
 
             try {
-                await axios.post("/upload", data)
+                await axios.post("/upload", data, config)
             }
             catch (e) {
                 console.log(e)
@@ -67,18 +73,19 @@ const Settings = () => {
                     <span className="settingsDeleteTitle">Eliminar cuenta</span>
 
                 </div>
-                <form action="" className="settingsForm" onSubmit={handleSubmit} enctype="multipart/form-data">
+                <form action="" className="settingsForm" onSubmit={handleSubmit} >
                     <label htmlFor="">Foto de Perfil</label>
 
                     <div className="settingsProfilePicture">
-                        <img className="settingsImg" src={file ? URL.createObjectURL(file) : publico +user.fotoPerfil} alt="" />
+                        <img className="settingsImg" src={file ? URL.createObjectURL(file) :`img/uploads/${user.fotoPerfil}`} alt="" />
                         <label htmlFor="fileInput">
-                            <i className="settingsProfilePictureIcon far fa-user"></i>
+                            <i className="settingsProfilePictureIcon far fa-user-circle"></i>
                         </label>
                         <input
                             type="file"
-                            name="avatar"
+                            name="file"
                             id="fileInput"
+                            accept=".jpg, .png, .jpeg"
                             style={{ display: "none" }}
                             onChange={e => setFile(e.target.files[0])}
                         />

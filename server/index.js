@@ -10,7 +10,6 @@ import dotenv from 'dotenv';
 dotenv.config({path:"variables.env"});
 import mongoose from 'mongoose'
 import multer from 'multer' // para poder subir archivos
-
 import path from 'path'
 
 const app = express()
@@ -41,16 +40,21 @@ mongoose.connect(url, {
 // para subir archivos
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, "images");
+      cb(null, "../client/public/img/uploads");
     },
     filename: (req, file, cb) => {
       cb(null, req.body.name);
     },
   });
-  
+
+
+ 
   const upload = multer({ storage: storage });
   app.post("/api/upload", upload.single("file"), (req, res) => {
     res.status(200).json("File has been uploaded");
+    console.log(req.body);
+    console.log(req.file);
+    
   });
 
 
@@ -74,7 +78,7 @@ app.use('/api/categories', categoriesRouter)
 const __dirname = path.resolve();
 
 //hacer los estáticos públicos
-app.use("/images", express.static(path.join(__dirname, "/images")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, '../client/build')));
 
 

@@ -8,7 +8,7 @@ const Post = ({ post }) => {
   
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-    const publicado = "http://localhost:5000/images/"
+    // const publicado = "http://localhost:5000/images/"
 
     // hace que según donde pinches en el post, es donde se abre la siguiente ventana. Esto evita hacer scroll
     // useEffect(() => {
@@ -19,7 +19,7 @@ const Post = ({ post }) => {
     return (
         <div className="post">
             <Link to={`/post/${post._id}/#principio`} className="Link" >
-                {post.foto && <img className="postImg" src={publicado + post.foto} alt="" />}
+                {post.foto && <img className="postImg" src={`img/uploads/${post.foto}`} alt="" />}
 
                 <div className="postInfo">
                     <div className="postCategories">

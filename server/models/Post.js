@@ -26,6 +26,7 @@ const postSchema = new Schema({
     },
     categoria:{
         type: Array,
+        trim: true,
         required: false
     }
 },  { timestamps: true})

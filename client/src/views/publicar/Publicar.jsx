@@ -76,15 +76,16 @@ const Publicar = () => {
         <div className="write">
             {file && <img className="writeImg" src={URL.createObjectURL(file)} alt="" />
             }
-            <form action="" className="writeForm" onSubmit={handleSubmit}>
+            <form action="" className="writeForm" onSubmit={handleSubmit} >
                 <div className="writeFormGroup">
                     <label htmlFor="fileInput">
                         <i className="writeIcon fas fa-plus"></i>
                     </label>
                     <input
                         type="file"
-                        name=""
+                        name="file"
                         id="fileInput"
+                        accept=".jpg, .png, .jpeg"
                         style={{ display: "none" }}
                         onChange={e => setFile(e.target.files[0])} />
 
@@ -101,7 +102,7 @@ const Publicar = () => {
                     <div><label htmlFor="categorias" >Categorías</label></div>
                     <div>
                         <select name="categorias" id="categorias" onChange={e => setCategoria(e.target.value)}>
-                            <option value="" selected="selected" >- Selecciona -</option>
+                            <option  defaultValue="selected" >- Selecciona -</option>
                             <option value="De Secre a Developer">De Secre a Developer</option>
                             <option value="Tengo un huerto">Tengo un huerto</option>
                             <option value="Recetas Eco">Recetas Eco</option>

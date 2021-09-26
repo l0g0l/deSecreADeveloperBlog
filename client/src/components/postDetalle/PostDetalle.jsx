@@ -14,7 +14,7 @@ const PostDetalle = () => {
     const path = location.pathname.split("/")[2]
     const { user } = useContext(Context)
     const [post, setPost] = useState({})
-    const publicado = "http://localhost:5000/images/"
+    // const publicado = "http://localhost:5000/images/"
     const [titulo, setTitulo] = useState("")
     const [descrip, setDescrip] = useState("")
     const [update, setUpdate] = useState(false)
@@ -22,7 +22,7 @@ const PostDetalle = () => {
     useEffect(() => {
         const muestraPost = async () => {
             const resultPost = await axios.get(`/posts/${path}`)
-            // console.log(resultPost.data)
+            console.log(resultPost.data)
             setPost(resultPost.data)
             setTitulo(resultPost.data.titulo)
             setDescrip(resultPost.data.descrip)
@@ -61,7 +61,7 @@ const PostDetalle = () => {
     return (
         <div className="postDetalle">
             <div className="postDetalleWrapper" >
-                {post.foto && <img className="postDetalleImg" src={publicado + post.foto} alt="" id="principio"/>}
+                {post.foto && <img className="postDetalleImg" src={`/img/uploads/${post.foto}`} alt="" id="principio"/>}
 
                 {update ? <input type="text" value={titulo} className="postDetalleTitleInput" autoFocus onChange={(e) => setTitulo(e.target.value)} /> : (
 
