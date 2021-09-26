@@ -14,7 +14,6 @@ const PostDetalle = () => {
     const path = location.pathname.split("/")[2]
     const { user } = useContext(Context)
     const [post, setPost] = useState({})
-    // const publicado = "http://localhost:5000/images/"
     const [titulo, setTitulo] = useState("")
     const [descrip, setDescrip] = useState("")
     const [update, setUpdate] = useState(false)

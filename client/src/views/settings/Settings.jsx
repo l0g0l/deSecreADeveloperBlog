@@ -9,7 +9,6 @@ import './settings.css'
 const Settings = () => {
 
     const { user, dispatch } = useContext(Context);
-    // const publico = "http://localhost:5000/images"
 
     const [file, setFile] = useState(null)
     const [usuario, setUsuario] = useState("")

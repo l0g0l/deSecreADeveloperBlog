@@ -8,11 +8,13 @@ import usersRouter from './routes/users.js'
 import postsRouter from './routes/posts.js'
 import dotenv from 'dotenv';
 dotenv.config({path:"variables.env"});
-import mongoose from 'mongoose'
+import connectDB from "./config/db.js";
 import multer from 'multer' // para poder subir archivos
 import path from 'path'
 
 const app = express()
+
+connectDB();
 
 // Definimos el puerto. Al hacer el deploy, el port será el que asgine el depliegue, porque no se sabe cual estará disponible, al estar en local, la variable .env.port no existe, por tanto correremos sonre el puerto 4000
 const port = process.env.PORT || 5000
@@ -25,18 +27,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use(morgan('dev'));
 
 
-//conectar a mongodb
-const atlasUrl = process.env.MONGO_URL;
-const url = atlasUrl
-mongoose.Promise = global.Promise
-mongoose.connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(mongoose => console.log('Conectado MongoDB'))
-.catch(e => { console.log(e) })
-
-
 // para subir archivos
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -47,8 +37,6 @@ const storage = multer.diskStorage({
     },
   });
 
-
- 
   const upload = multer({ storage: storage });
   app.post("/api/upload", upload.single("file"), (req, res) => {
     res.status(200).json("File has been uploaded");
@@ -79,7 +67,7 @@ const __dirname = path.resolve();
 
 //hacer los estáticos públicos
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, '/client/build')));
 
 
 app.get('*', (req, res) => {
