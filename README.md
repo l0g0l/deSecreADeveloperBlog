@@ -9,9 +9,9 @@
 
 <p  align="center">
 
-<a  href="https://pure-savannah-13335.herokuapp.com/">View Web Application</a>
+<a  href="">View Web Application</a>
 
-  
+    
 
 <!-- TABLE OF CONTENTS -->
 
@@ -51,7 +51,7 @@
 
   
 
-- Clone the repository on your local machine (https://github.com/l0g0l/myblog.git)
+- Clone the repository on your local machine (https://github.com/l0g0l/deSecreADeveloperBlog.git)
 
   
 

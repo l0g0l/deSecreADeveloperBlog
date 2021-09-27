@@ -9,25 +9,26 @@ import './settings.css'
 const Settings = () => {
 
     const { user, dispatch } = useContext(Context);
-
+    console.log(user)
     const [file, setFile] = useState(null)
-    const [usuario, setUsuario] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [usuario, setUsuario] = useState(user.usuario)
+    const [email, setEmail] = useState(user.email)
+    const [password, setPassword] = useState(user.password)
     const [correctoMssg, setCorrectoMssg] = useState(false)
 
     // hace que según donde pinches en el post, es donde se abre la siguiente ventana. Esto evita hacer scroll
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
-
+    
     const handleSubmit = async (e) => {
+        console.log(user)
         console.log(e)
         e.preventDefault()
         dispatch({ type: "UPDATE_START" });
 
         const updateUsuario = {
-            userId: user._id,
+            _id: user._id,
             usuario,
             email,
             password
@@ -48,16 +49,16 @@ const Settings = () => {
               }
 
             try {
-                await axios.post("/upload", data, config)
+                await axios.post("/api/upload", data, config)
             }
             catch (e) {
                 console.log(e)
             }
         }
         try {
-            const result = await axios.put(`/users/${user._id}`, updateUsuario);
+            await axios.put(`/api/users/${user._id}`, updateUsuario);
             setCorrectoMssg(true);
-            dispatch({ type: "UPDATE_SUCCESS", payload: result.data });
+            dispatch({ type: "UPDATE_SUCCESS", payload: updateUsuario });
         } catch (e) {
             console.log(e)
             dispatch({ type: "UPDATE_FAILURE" });
@@ -91,13 +92,13 @@ const Settings = () => {
                     </div>
 
                     <label htmlFor="">Usuario</label>
-                    <input type="text" placeholder={user.usuario} onChange={e => setUsuario(e.target.value)} />
+                    <input type="text" placeholder={user.usuario} onChange={e => setUsuario(e.target.value)} autocomplete="off"/>
 
                     <label htmlFor="">Email</label>
-                    <input type="email" placeholder={user.email} onChange={e => setEmail(e.target.value)} />
+                    <input type="email" placeholder={user.email} onChange={e => setEmail(e.target.value)} autocomplete="off" />
 
                     <label htmlFor="">Password</label>
-                    <input type="password" placeholder="****" onChange={e => setPassword(e.target.value)} />
+                    <input type="password" placeholder="****" onChange={e => setPassword(e.target.value)} autocomplete="off"/>
 
                     <input className="settingsSubmit" type="submit" value="Actualizar"/>
                     {correctoMssg && <span style={{ color: "#000", textAlign: "center", marginTop: "20px" }}>Perfil actualizado correctamente</span>}

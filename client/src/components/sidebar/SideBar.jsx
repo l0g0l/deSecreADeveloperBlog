@@ -9,8 +9,10 @@ const SideBar = () => {
 
     useEffect(() => {
         const muestraCateg = async () => {
-            const resultCateg = await axios.get("/categories")
+            const resultCateg = await axios.get("/api/categories")
+            console.log(resultCateg)
             setCateg(resultCateg.data)
+
           
         }
 

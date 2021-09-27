@@ -18,7 +18,7 @@ const Registro = () => {
         setMostrarError(false) //lo pongo al comienzo y en false para que no muestre el mensaje de primeras
 
         try {
-            const result = await axios.post("/auth/registro", {
+            const result = await axios.post("/api/auth/registro", {
                 usuario,
                 email,
                 password

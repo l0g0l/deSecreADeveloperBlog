@@ -47,16 +47,16 @@ const Publicar = () => {
               }
 
             try {
-                await axios.post("/upload", data, config)
+                await axios.post("/api/upload", data, config)
             }
             catch (e) {
-                console.log(e, 'soy el catch del api/upload')
+                console.log(e)
                 setMostrarError(true)
             }
         }
         try {
 
-            const result = await axios.post("/posts", nuevoPost)
+            const result = await axios.post("/api/posts", nuevoPost)
             if (result.data.message) {
                 setGuardarError(result.data.message)
                 setTimeout(() => {
@@ -68,7 +68,7 @@ const Publicar = () => {
         }
         catch (e) {
             
-            console.log(e, 'soy el catch de /posts')
+            console.log(e)
             setMostrarError(true)
         }
     }

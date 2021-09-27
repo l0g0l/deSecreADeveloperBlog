@@ -22,7 +22,7 @@ const mostrarUsuario = async (req, res, next) => {
 // ACTUALIZAR
 const actualizarUsuario = async (req, res, next) => {
     console.log(req.body)
-    if (req.body.userId === req.params.id) {
+    if (req.body._id === req.params.id) {
         if (req.body.password) {
             const salt = await bcrypt.genSalt(10)
             req.body.password = await bcrypt.hash(req.body.password, salt)
@@ -46,7 +46,7 @@ const actualizarUsuario = async (req, res, next) => {
 //ELIMINAR
 const eliminarUsuario = async (req, res, next) => {
     console.log(req.body)
-    if (req.body.userId === req.params.id) {
+    if (req.body._id === req.params.id) {
         try {
             const unUsuario = await User.findById(req.params.id) //primero busco al usuario
             try {

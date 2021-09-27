@@ -16,11 +16,17 @@ const Login = () => {
         e.preventDefault()
         dispatch({type: "LOGIN_START"})
         try {
-            const result = await axios.post("auth/login", {
+            let result = await axios.post("/api/auth/login", {
+                
                 usuario: userRef.current.value,
                 password: passRef.current.value
+
             })
+            result.data.password = passRef.current.value
+            console.log(result.data)
             dispatch({type: "LOGIN_SUCCESS", payload: result.data})
+       
+
 
         }
         catch(e) {

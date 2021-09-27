@@ -30,7 +30,7 @@ app.use(morgan('dev'));
 // para subir archivos
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, "../client/public/img/uploads");
+      cb(null, "../client/build/img/uploads");
     },
     filename: (req, file, cb) => {
       cb(null, req.body.name);
@@ -69,10 +69,10 @@ const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 
-  app.use(express.static(path.join(__dirname, "/client/build")));
+  app.use(express.static(path.join(__dirname, "../client/build")));
 
   app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+    res.sendFile(path.join(__dirname, "../client/build/index.html"))
   );
 
 

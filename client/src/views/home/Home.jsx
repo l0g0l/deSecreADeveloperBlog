@@ -14,7 +14,7 @@ const Home = () => {
  
     useEffect(() => {
         const fetchPosts = async () => {
-            const resultPosts = await axios.get(`/posts/${search}`) //añadir la /
+            const resultPosts = await axios.get(`/api/posts/${search}`) //añadir la /
             setPosts(resultPosts.data) //guardamos todos los post en el state
           }
 

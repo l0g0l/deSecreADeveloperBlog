@@ -20,7 +20,7 @@ const PostDetalle = () => {
 
     useEffect(() => {
         const muestraPost = async () => {
-            const resultPost = await axios.get(`/posts/${path}`)
+            const resultPost = await axios.get(`/api/posts/${path}`)
             console.log(resultPost.data)
             setPost(resultPost.data)
             setTitulo(resultPost.data.titulo)
@@ -33,7 +33,7 @@ const PostDetalle = () => {
     const handleDelete = async () => {
         try {
 
-            await axios.delete(`/posts/${path}`, {
+            await axios.delete(`/api/posts/${path}`, {
                 data: { usuario: user.usuario }
             })
             history.push("/")
@@ -46,7 +46,7 @@ const PostDetalle = () => {
     const handleUpdate = async () => {
         try {
 
-            await axios.put(`/posts/${path}`, { usuario: user.usuario, titulo: titulo, descrip: descrip })
+            await axios.put(`/api/posts/${path}`, { usuario: user.usuario, titulo: titulo, descrip: descrip })
             setUpdate(false)
             history.push("/")
 
