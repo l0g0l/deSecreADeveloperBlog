@@ -12,7 +12,6 @@ const nuevoUsuario = async (req, res, next) => {
         if (!(req.body.email && req.body.password && req.body.usuario)) {
             return res.status(401).send({ error: "Debe rellenar todos los campos" });
         }
-        ;
         const salt = await bcrypt.genSalt(10)
         const hashedPass = await bcrypt.hash(req.body.password, salt)
         //crear obj instanciando user con datos de req.body
