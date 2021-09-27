@@ -13,6 +13,9 @@
   <p align="center">
 <img src="https://www.codefactor.io/repository/github/l0g0l/desecreadeveloperblog/badge" alt="Codefactor Grade">
 </p>
+<p align="center">
+<img src="https://sonarcloud.io/api/project_badges/measure?project=l0g0l_deSecreADeveloperBlog&metric=alert_status" alt="Sonar Quality Gate">
+</p>
 
 <!-- TABLE OF CONTENTS -->
 
