@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-// import { useEffect } from 'react'
+import { useEffect } from 'react'
 
 
 import './post.css'
@@ -10,9 +10,9 @@ const Post = ({ post }) => {
 
 
     // hace que según donde pinches en el post, es donde se abre la siguiente ventana. Esto evita hacer scroll
-    // useEffect(() => {
-    //     window.scrollTo(0, 0)
-    // }, [])
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
 
     return (

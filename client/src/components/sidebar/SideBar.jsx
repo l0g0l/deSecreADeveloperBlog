@@ -10,7 +10,7 @@ const SideBar = () => {
     useEffect(() => {
         const muestraCateg = async () => {
             const resultCateg = await axios.get("/api/categories")
-            console.log(resultCateg)
+            // console.log(resultCateg)
             setCateg(resultCateg.data)
 
           

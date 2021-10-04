@@ -4,7 +4,7 @@
 }
 .settingsWrapper {
   flex: 9;
-  padding: 20px;
+  padding: 20px 100px;
 }
 .settingsTitle {
   display: flex;

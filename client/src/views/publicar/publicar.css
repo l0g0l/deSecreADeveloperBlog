@@ -37,7 +37,7 @@
   display: flex;
   justify-content: left;
   align-items: center;
-  margin-left: 242px;
+  margin-left: 331px;
   margin-top: 20px;
   padding-bottom: 10px;
   position: relative;
@@ -103,7 +103,7 @@ dos bordes con color y que giramos con transform: rotate(-45deg);
 .writeText {
   font-size: 20px;
   height: 33vh;
-  margin-left: 29px;
+  margin-left: 27px;
   text-align: justify;
   outline: none;
 }

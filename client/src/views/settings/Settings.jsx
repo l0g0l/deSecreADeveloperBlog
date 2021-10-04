@@ -1,7 +1,9 @@
 import { useContext, useState, useEffect } from 'react'
-import Sidebar from '../../components/sidebar/SideBar'
+// import Sidebar from '../../components/sidebar/SideBar'
 import { Context } from '../../context/Context.js'
 import axios from 'axios'
+
+
 
 
 import './settings.css'
@@ -22,8 +24,6 @@ const Settings = () => {
     }, [])
     
     const handleSubmit = async (e) => {
-        console.log(user)
-        console.log(e)
         e.preventDefault()
         dispatch({ type: "UPDATE_START" });
 
@@ -41,7 +41,7 @@ const Settings = () => {
             data.append("name", filename)
             data.append("file", file)
             console.log(data, ' soy el data del multer')
-            updateUsuario.fotoPerfil = filename
+            updateUsuario.fotoPerfil = filename 
             const config = { 
                 headers : {
                   'Content-Type': 'multipart/form-data'
@@ -104,7 +104,7 @@ const Settings = () => {
                     {correctoMssg && <span style={{ color: "#000", textAlign: "center", marginTop: "20px" }}>Perfil actualizado correctamente</span>}
                 </form>
             </div>
-            <Sidebar />
+            {/* <Sidebar /> */}
 
         </div>
     )

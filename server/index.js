@@ -4,13 +4,18 @@ import express from 'express'
 import morgan from 'morgan'
 import authRouter from './routes/auth.js'
 import categoriesRouter from './routes/categories.js'
-import usersRouter from './routes/users.js' 
+import usersRouter from './routes/users.js'
 import postsRouter from './routes/posts.js'
 import dotenv from 'dotenv';
-dotenv.config({path:"variables.env"});
+dotenv.config({ path: "variables.env" });
 import connectDB from "./config/db.js";
-import multer from 'multer' // para poder subir archivos
 import path from 'path'
+import multer from 'multer' // para poder subir archivos
+import { GridFsStorage } from 'multer-gridfs-storage'
+import Grid from 'gridfs-stream'
+import mongoose from 'mongoose'
+
+
 
 const app = express()
 
@@ -27,7 +32,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(morgan('dev'));
 
 
-// para subir archivos
+/* // para subir archivos
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, "../client/build/img/uploads");
@@ -35,15 +40,65 @@ const storage = multer.diskStorage({
     filename: (req, file, cb) => {
       cb(null, req.body.name);
     },
-  });
+  }); */
 
-  const upload = multer({ storage: storage });
-  app.post("/api/upload", upload.single("file"), (req, res) => {
-    res.status(200).json("File has been uploaded");
-    console.log(req.body);
-    console.log(req.file);
-    
+
+//inicializar Gridfs
+let gfs
+
+let conn = mongoose.createConnection()
+conn.once('open', () => {
+  //init stream
+  gfs = Grid(conn.db, mongoose.mongo)
+  gfs.collection('uploads')
+})
+
+//create store engine
+const storage = new GridFsStorage({
+  url: process.env.MONGO_URL,
+  file: (req, file) => {
+    console.log(file, 'soy el file')
+
+    return new Promise((resolve, reject) => {
+      const filename = req.body.name
+      const fileInfo = {
+        filename: filename,
+        bucketName: 'upload'
+      }
+      resolve(fileInfo)
+
+    })
+  }
+})
+const upload = multer({ storage })
+
+app.post("/api/upload", upload.single("file"), (req, res) => {
+  res.status(200).json("File has been uploaded")
+  console.log(req.body, 'soy el body')
+  console.log(req.file, 'soy el req.file')
+})
+
+app.get('/api/image/:filename', (req, res) => {
+  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+    // Si existe file
+    if (!file || file.length === 0) {
+      return res.status(404).json({
+        message: 'No file exists'
+      });
+    }
+
+    // Si existe imagen
+    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'image/jpg') {
+      // Mostrar imagen
+      const readstream = gfs.createReadStream(file.filename);
+      readstream.pipe(res);
+    } else {
+      res.status(404).json({
+        message: 'No es una imagen'
+      });
+    }
   });
+});
 
 
 //Agregar Router. El use soporta todos los verbos de express GET, POST, PATCH, PUT DELETE, de esta manera a la pag ppal, esta, agrega las rutas que hemos establecido en auth.js
@@ -69,15 +124,16 @@ const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 
-  app.use(express.static(path.join(__dirname, "../client/build")));
+// app.use(express.static(path.join(__dirname, "../client/build"))); MIA
+app.use(express.static(path.join(__dirname, "/client/build")));
 
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-  );
+app.get("*", (req, res) =>
+  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+);
 
 
 // arranca el servidor
 app.listen(port, host, () => {
-    console.log(`Server conenected in the port ${port}`);
+  console.log(`Server conenected in the port ${port}`);
 
 })

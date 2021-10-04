@@ -31,6 +31,7 @@ const Publicar = () => {
             titulo,
             descrip,
             categoria
+            
         }
 
         //multer en index. Para subir archivos
@@ -40,12 +41,13 @@ const Publicar = () => {
             data.append("name", filename)
             data.append("file", file)
             nuevoPost.foto = filename
+            nuevoPost.filename = filename
             const config = { 
                 headers : {
-                  'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data'
                 }
-              }
-
+            }
+            
             try {
                 await axios.post("/api/upload", data, config)
             }
@@ -53,14 +55,15 @@ const Publicar = () => {
                 console.log(e)
                 setMostrarError(true)
             }
+          
         }
         try {
-
+            
             const result = await axios.post("/api/posts", nuevoPost)
+            console.log(result.config.data)
             if (result.data.message) {
                 setGuardarError(result.data.message)
                 setTimeout(() => {
-                    // window.location.replace("/")
                     history.push("/")
                 }, 2000)
 

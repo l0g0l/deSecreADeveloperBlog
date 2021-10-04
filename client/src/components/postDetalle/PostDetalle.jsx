@@ -21,7 +21,7 @@ const PostDetalle = () => {
     useEffect(() => {
         const muestraPost = async () => {
             const resultPost = await axios.get(`/api/posts/${path}`)
-            console.log(resultPost.data)
+            // console.log(resultPost.data)
             setPost(resultPost.data)
             setTitulo(resultPost.data.titulo)
             setDescrip(resultPost.data.descrip)

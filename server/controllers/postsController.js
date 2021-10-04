@@ -24,8 +24,12 @@ const mostrarTodosPost = async (req, res, next) => {
     try {
         let posts
         let query
+       
         if (usuarioNombre && categNombre) {
-            query = { usuario: usuarioNombre, categoria: categNombre}
+            query = { 
+                usuario: usuarioNombre, 
+                categoria: categNombre
+            }
 
         } else if (categNombre && !usuarioNombre) {
             query = {
@@ -33,13 +37,15 @@ const mostrarTodosPost = async (req, res, next) => {
                 
             }
         } else if (!categNombre && usuarioNombre) {
-            query = { usuario: usuarioNombre }
+            query = { 
+                usuario: usuarioNombre 
+            }
 
         } else {
             query = {}
         }
         posts = await Post.find(query)
-        res.status(200).json(posts)
+           res.status(200).json(posts)
 
     }
     catch (e) {

@@ -15,6 +15,7 @@ const postSchema = new Schema({
         required: true,
     },
     foto: {
+        data: Buffer,
         type: String,
         trim: true,
         required: true

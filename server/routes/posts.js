@@ -9,6 +9,7 @@ router.post('/', crearPost)
 //MOSTRAR TODOS LOS POSTS
 router.get('/', mostrarTodosPost)
 
+
 //MOSTRAR UN POST
 router.get('/:id', mostrarPost)
 
