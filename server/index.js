@@ -30,6 +30,8 @@ const host = process.env.HOST || '0.0.0.0'
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
+
+// para ver las rutas en los logs de node
 app.use(morgan('dev'));
 
 
@@ -38,27 +40,22 @@ app.use(morgan('dev'));
 mongoose.set('debug', true);
 let conn = mongoose.connection
 let gridFSBucket;
-
+//cuando la conexión esté abierta...
 conn.on("open", () => {
   gridFSBucket = new mongoose.mongo.GridFSBucket(conn.db, {
     bucketName: "upload"
   });
 })
 
-let gfs = Grid(conn, mongoose.mongo)
-let schema = new mongoose.Schema({filename: {type: String}, contentType:{type: String}},{strict: false})
+// let gfs = Grid(conn, mongoose.mongo)
+//creamos un nuevo schema con el filename y el contentType
+let schema = new mongoose.Schema({ filename: { type: String }, contentType: { type: String } }, { strict: false })
+//utilizamos el model Schema con la colección uploads
 let grid_obj = mongoose.model('upload', schema, 'upload.files')
-//const Photo = createModel({modelName:'upload', bucketName: 'upload', connection: conn})
-//const Photo = createModel({modelName:'upload', connection: grid_obj})
 
+//uso de multer para subir las fotos a la BBDD
 
-/* conn.once('open', () => {
-  //init stream
-  var gfs = Grid(conn.db, mongoose.mongo)
-  gfs.collection('upload')
-}) */
-
-//create store engine
+//creamos el storage
 const storage = new GridFsStorage({
   url: process.env.MONGO_URL,
   file: (req, file) => {
@@ -82,21 +79,18 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
   console.log(req.body, 'soy el body')
   console.log(req.file, 'soy el req.file')
 })
+// aqui termina el uso de multer
 
 app.get('/api/image/:filename', (req, res) => {
-  //console.log(gfs, 'soy el gfs')
-//  Photo.findOne({ filename: req.params.filename }, (err, file) => {
-//    console.log(file)
-//  })
   console.log(grid_obj)
   console.log(req.params)
-  grid_obj.findOne({ filename: req.params.filename }, (err, file) => {
-    // Si existe file
-//    console.log(err)
-//    console.log(file)
-    if (file == null) {
+  ///buscamos dentro del obj grid_obj la foto por parámetro filename
+  grid_obj.findOne({ filename: req.params.filename }, (err, file) => { //file es un parámetro de la sintaxis de findOne
+
+    //si no esxiste imagen
+    if (!file) {
       return res.status(404).json({
-        message: 'No file exists'
+        message: 'La foto no existe'
       });
     }
 
@@ -104,25 +98,23 @@ app.get('/api/image/:filename', (req, res) => {
     console.log(file.contentType)
     console.log(file._id)
     if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'image/jpg') {
-      // Mostrar imagen
-      console.log("culo")
-      // var readstream = gfs.createReadStream({filename: file.filename});
-      var readstream = gridFSBucket.openDownloadStream(file._id);
-      console.log("caca")
-      var chunks = [] 
-      var response = {contentType: file.contentType, data: ""}
+      // Para mostrar imagen
+      let readstream = gridFSBucket.openDownloadStream(file._id); //la buscamos por id
+    
+      let chunks = [] //preparamos un array vacío para ir llenándolo de los "trozos" de la imagen que se vayan descargando
+      let response = { contentType: file.contentType, data: "" } //contentType y data(imagen en base64) luego los utilizo en al url del front
+      //cuando haya datos...
       readstream.on("data", function (chunk) {
-        chunks.push(chunk)
+        chunks.push(chunk) //añádelos al array
       })
+      //cuando ya no haya más datos...
       readstream.on("end", function () {
-        let buffer = Buffer.concat(chunks)
-        let buffer64 = buffer.toString('base64')
+        let buffer = Buffer.concat(chunks) //concatena todos los chunks en un buffer
+        let buffer64 = buffer.toString('base64') //transformalo en un  string codificado a base64 (es un método de toString)
         response.data = buffer64
-        res.status(200).json(response)
+        res.status(200).json(response) //mando la respuesta
       })
-      
-      //console.log(lol)
-      // readstream.pipe(res);
+
     } else {
       res.status(404).json({
         message: 'No es una imagen'

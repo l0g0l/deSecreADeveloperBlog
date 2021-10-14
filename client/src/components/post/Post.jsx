@@ -8,18 +8,17 @@ import './post.css'
 const Post = ({ post }) => {
   
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const [imagemola, setImage] = useState({})
+    const [image, setImage] = useState({})
 
 
     useEffect(() => {
         const fetchImages = async () => {
             
-            // await axios.get(`/api/image/${post.foto}`,{responseType: 'arraybuffer'}).then(res => {
             await axios.get(`/api/image/${post.foto}`).then(res => {
                 console.log(res.data)
                 setImage(res.data)
-                // setImage(res.data)
-            }) //añadir la /
+                
+            }) 
 
         }
         fetchImages()
@@ -35,7 +34,7 @@ const Post = ({ post }) => {
     return (
         <div className="post">
             <Link to={`/post/${post._id}/#principio`} className="Link" onClick={scrollTop}>
-                {post.foto && <img className="postImg" src={`data:${imagemola.contentType};base64,${imagemola.data}`} alt="" />}
+                {post.foto && <img className="postImg" src={`data:${image.contentType};base64,${image.data}`} alt="" />}
 
                 <div className="postInfo">
                     <div className="postCategories">
