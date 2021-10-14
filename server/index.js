@@ -33,17 +33,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use(morgan('dev'));
 
 
-/* // para subir archivos
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, "../client/build/img/uploads");
-    },
-    filename: (req, file, cb) => {
-      cb(null, req.body.name);
-    },
-  }); */
-
-
 //inicializar Gridfs
 
 mongoose.set('debug', true);
@@ -55,6 +44,7 @@ conn.on("open", () => {
     bucketName: "upload"
   });
 })
+
 let gfs = Grid(conn, mongoose.mongo)
 let schema = new mongoose.Schema({filename: {type: String}, contentType:{type: String}},{strict: false})
 let grid_obj = mongoose.model('upload', schema, 'upload.files')
@@ -119,13 +109,15 @@ app.get('/api/image/:filename', (req, res) => {
       // var readstream = gfs.createReadStream({filename: file.filename});
       var readstream = gridFSBucket.openDownloadStream(file._id);
       console.log("caca")
-      var chunks = []
-      var response = {contentType: file.contentType, data: []}
+      var chunks = [] 
+      var response = {contentType: file.contentType, data: ""}
       readstream.on("data", function (chunk) {
         chunks.push(chunk)
       })
       readstream.on("end", function () {
-        response.data = Buffer.concat(chunks)
+        let buffer = Buffer.concat(chunks)
+        let buffer64 = buffer.toString('base64')
+        response.data = buffer64
         res.status(200).json(response)
       })
       
