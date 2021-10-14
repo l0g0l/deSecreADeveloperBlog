@@ -13,8 +13,9 @@ import path from 'path'
 import multer from 'multer' // para poder subir archivos
 import { GridFsStorage } from 'multer-gridfs-storage'
 import Grid from 'gridfs-stream'
+//import { createModel } from 'mongoose-gridfs';
 import mongoose from 'mongoose'
-
+Grid.mongo = mongoose.mongo
 
 
 const app = express()
@@ -44,14 +45,28 @@ const storage = multer.diskStorage({
 
 
 //inicializar Gridfs
-let gfs
 
-let conn = mongoose.createConnection()
-conn.once('open', () => {
-  //init stream
-  gfs = Grid(conn.db, mongoose.mongo)
-  gfs.collection('uploads')
+mongoose.set('debug', true);
+let conn = mongoose.connection
+let gridFSBucket;
+
+conn.on("open", () => {
+  gridFSBucket = new mongoose.mongo.GridFSBucket(conn.db, {
+    bucketName: "upload"
+  });
 })
+let gfs = Grid(conn, mongoose.mongo)
+let schema = new mongoose.Schema({filename: {type: String}, contentType:{type: String}},{strict: false})
+let grid_obj = mongoose.model('upload', schema, 'upload.files')
+//const Photo = createModel({modelName:'upload', bucketName: 'upload', connection: conn})
+//const Photo = createModel({modelName:'upload', connection: grid_obj})
+
+
+/* conn.once('open', () => {
+  //init stream
+  var gfs = Grid(conn.db, mongoose.mongo)
+  gfs.collection('upload')
+}) */
 
 //create store engine
 const storage = new GridFsStorage({
@@ -79,19 +94,43 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 })
 
 app.get('/api/image/:filename', (req, res) => {
-  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+  //console.log(gfs, 'soy el gfs')
+//  Photo.findOne({ filename: req.params.filename }, (err, file) => {
+//    console.log(file)
+//  })
+  console.log(grid_obj)
+  console.log(req.params)
+  grid_obj.findOne({ filename: req.params.filename }, (err, file) => {
     // Si existe file
-    if (!file || file.length === 0) {
+//    console.log(err)
+//    console.log(file)
+    if (file == null) {
       return res.status(404).json({
         message: 'No file exists'
       });
     }
 
     // Si existe imagen
+    console.log(file.contentType)
+    console.log(file._id)
     if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'image/jpg') {
       // Mostrar imagen
-      const readstream = gfs.createReadStream(file.filename);
-      readstream.pipe(res);
+      console.log("culo")
+      // var readstream = gfs.createReadStream({filename: file.filename});
+      var readstream = gridFSBucket.openDownloadStream(file._id);
+      console.log("caca")
+      var chunks = []
+      var response = {contentType: file.contentType, data: []}
+      readstream.on("data", function (chunk) {
+        chunks.push(chunk)
+      })
+      readstream.on("end", function () {
+        response.data = Buffer.concat(chunks)
+        res.status(200).json(response)
+      })
+      
+      //console.log(lol)
+      // readstream.pipe(res);
     } else {
       res.status(404).json({
         message: 'No es una imagen'

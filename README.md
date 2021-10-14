@@ -42,100 +42,80 @@
 </details>
 
   
-
 ### Prerequisites
-
-  
-
+ 
+-  [React js](https://es.reactjs.org/)
 -  [Node](https://nodejs.org/en/)
 
--  [React js](https://es.reactjs.org/)
-
 -  [MongoDB](https://www.mongodb.com/es)
-
-  
 
 - Clone the repository on your local machine (https://github.com/l0g0l/deSecreADeveloperBlog.git)
 
   
-
 ## Installation
 
-  
 ##### Frontend
 
 ```sh
 
 `cd client` go into the folder
-
 ```
 
 Install dependecies and devDependencies
 
-  
-
 ```sh
 
 npm i
-
 ```
 
 Enter the following command
 
-  
-
 ```sh
 
 npm start
-
 ```
-
-Install dependecies and devDependencies
-
-  
-
+###### Backend
 ```sh
 
-npm i
-
+`cd server` go into the folder
 ```
+Install the dependencies and devDependencies 
 
+```sh
+npm i
+```
 Enter the following command
 
-  
-
 ```sh
 
 npm start
-
 ```
+On the other side you will need to add the enviroments to run your own MongoDB database.
+
 
 <!-- ABOUT THE PROJECT -->
 
-  
-
 ## About The Project
 
-  
+Creation of my own Blog.  
 
-Creation of my own Blog
+The back end of the application was built with [Nodejs](https://nodejs.org/), [Mongoose](https://mongoosejs.com/) and [MongoDB](https://www.mongodb.com/) database. All data fetching was done using [Express](https://expressjs.com/) and [Axios](https://github.com/axios/axios) for declaring JSON structures. For the image handling, the web application is using [Multer](https://www.npmjs.com/package/multer), [fs-extra](https://www.npmjs.com/package/fs-extra) and [AWS S3 Bucket](https://aws.amazon.com/s3/) where we store all the pictures in a safe way. 
+
+The front end was created with [Reactjs](https://es.reactjs.org/) and [JavaScript](https://developer.mozilla.org/es/docs/Web/JavaScript) and uses the [Redux](https://es.redux.js.org/) architectural framework for an optimal single-page user-experience.
+
+The backend and the frontend of the project are deployed in [Heroku](https://id.heroku.com/) through the `master` branch.
+
+#### Authentication page
+Back-end and front-end user authentication was built from scratch by encrypting user password with [Bcryptjs](https://www.npmjs.com/package/bcryptjs) and creating a unique session token with [JSONWebToken](https://www.npmjs.com/package/jsonwebtoken) for each user on sign up or login. This allows for secure access to one's account on the single-page application which then renders distinct content based on the current user.
+
 
 
 <!-- APP OVERVIEW -->
-
-  
-
 ## App Overview
-
-  
 
 ###### Home
 
-  
-
 <img  src="client/public/img/app.gif"  alt="app view"  >
-
-  
 
 <br>
 
@@ -143,18 +123,13 @@ Creation of my own Blog
 
 <!-- ACKNOWLEDGEMENTS -->
 
-  
-
 ## Languages and Tools:
 
-  
-  
+The project is deployed in [Heroku](https://id.heroku.com/)through the `main` branch.
 
-The project is deployed in [Heroku](https://id.heroku.com/)
+
 
 <br>
-
-  
 
 <p  align="left">
 
@@ -209,22 +184,11 @@ The project is deployed in [Heroku](https://id.heroku.com/)
 
 </p>
 
-  
-
 <!-- CONTACT -->
-
-  
-
 ## Contact
-
-  
 
 Lucía González
 
-  
-
 [<img src="https://github.com/l0g0l/hackathonmwc/raw/main/src/images/GitHub.png" width=45px heigth=45px>](https://github.com/l0g0l)
-
-  
 
 [<img src="https://github.com/l0g0l/hackathonmwc/raw/main/src/images/linkedin.png" width=40px heigth=40px>](https://www.linkedin.com/in/luciagonzalezlara)

@@ -41,7 +41,6 @@ const Publicar = () => {
             data.append("name", filename)
             data.append("file", file)
             nuevoPost.foto = filename
-            nuevoPost.filename = filename
             const config = { 
                 headers : {
                     'Content-Type': 'multipart/form-data'

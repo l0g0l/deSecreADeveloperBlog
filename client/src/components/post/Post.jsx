@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 
 import './post.css'
@@ -7,18 +8,34 @@ import './post.css'
 const Post = ({ post }) => {
   
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const [imagemola, setImage] = useState()
 
 
-    // hace que según donde pinches en el post, es donde se abre la siguiente ventana. Esto evita hacer scroll
     useEffect(() => {
-        window.scrollTo(0, 0)
+        const fetchImages = async () => {
+            
+            await axios.get(`/api/image/${post.foto}`,{responseType: 'arraybuffer'}).then(res => {
+                let base64ImageString = Buffer.from(res.data, 'binary').toString('base64')
+                 console.log(base64ImageString)
+                setImage(base64ImageString)
+                // setImage(res.data)
+            }) //añadir la /
+
+        }
+        fetchImages()
     }, [])
 
+    function scrollTop() {
+        window.scrollTo({
+            top:0,
+            behavior:'smooth'
+        })
+    }
 
     return (
         <div className="post">
-            <Link to={`/post/${post._id}/#principio`} className="Link" >
-                {post.foto && <img className="postImg" src={`img/uploads/${post.foto}`} alt="" />}
+            <Link to={`/post/${post._id}/#principio`} className="Link" onClick={scrollTop}>
+                {post.foto && <img className="postImg" src={`data:image/jpeg;base64,${imagemola}`} alt="" />}
 
                 <div className="postInfo">
                     <div className="postCategories">
