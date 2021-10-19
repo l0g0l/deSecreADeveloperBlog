@@ -150,7 +150,7 @@ const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 
-app.use(express.static(path.join(__dirname, "../client/build"))); MIA
+app.use(express.static(path.join(__dirname, "../client/build")));
 // app.use(express.static(path.join(__dirname, "/client/build")));
 
 app.get("*", (req, res) =>
