@@ -5,7 +5,8 @@ import axios from 'axios'
 import { Context } from '../../context/Context.js'
 import './postdetalle.css'
 
-const PostDetalle = () => {
+const PostDetalle = ({dataposts}) => {
+    console.log(dataposts[0].foto)
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
     const history = useHistory() 
@@ -17,6 +18,7 @@ const PostDetalle = () => {
     const [titulo, setTitulo] = useState("")
     const [descrip, setDescrip] = useState("")
     const [update, setUpdate] = useState(false)
+    const [image, setImage] = useState({})
 
     useEffect(() => {
         const muestraPost = async () => {
@@ -26,6 +28,16 @@ const PostDetalle = () => {
             setTitulo(resultPost.data.titulo)
             setDescrip(resultPost.data.descrip)
         }
+        const fetchImages = async () => {
+            
+            await axios.get(`/api/image/${dataposts[0].foto}`).then(res => {
+                console.log(res.data)
+                setImage(res.data)
+                
+            }) 
+
+        }
+        fetchImages()
 
         muestraPost()
     }, [path])
@@ -60,7 +72,7 @@ const PostDetalle = () => {
     return (
         <div className="postDetalle">
             <div className="postDetalleWrapper" >
-                {post.foto && <img className="postDetalleImg" src={`/img/uploads/${post.foto}`} alt="" id="principio"/>}
+                {post.foto && <img className="postDetalleImg" src={`data:${image.contentType};base64,${image.data}`} alt="" id="principio"/>}
 
                 {update ? <input type="text" value={titulo} className="postDetalleTitleInput" autoFocus onChange={(e) => setTitulo(e.target.value)} /> : (
 

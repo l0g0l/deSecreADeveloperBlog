@@ -103,7 +103,7 @@ app.get('/api/image/:filename', (req, res) => {
     if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'image/jpg') {
       // Para mostrar imagen
       let readstream = gridFSBucket.openDownloadStream(file._id); //la buscamos por id
-    
+
       let chunks = [] //preparamos un array vacío para ir llenándolo de los "trozos" de la imagen que se vayan descargando
       let response = { contentType: file.contentType, data: "" } //contentType y data(imagen en base64) luego los utilizo en al url del front
       //cuando haya datos...
