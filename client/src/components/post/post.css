@@ -1,7 +1,8 @@
 .post {
   width: 352px;
-  margin: 0 25px 30px 25px;
-  background-color: #fff8f4;
+  height: 500px;
+  margin: 10px 25px 0 25px;
+  background-color: #fbecef;
 }
 .postImg {
   width: 100%;

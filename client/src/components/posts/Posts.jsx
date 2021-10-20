@@ -9,9 +9,9 @@ const Posts = ({ dataposts }) => {//recibimos por props toda la info de los post
     return (
         <div className="posts">
             {dataposts.map((item) => (
-                < div key={item._id} >
-                    <Post post={item} />
-                </div>
+                <  >
+                    <Post post={item} key={item._id} />
+                </>
 
             ))}
 

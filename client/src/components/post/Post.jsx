@@ -16,10 +16,8 @@ const Post = ({ post }) => {
             
             await axios.get(`/api/image/${post.foto}`).then(res => {
                 console.log(res.data)
-                setImage(res.data)
-                
+                setImage(res.data) 
             }) 
-
         }
         fetchImages()
     }, [])
