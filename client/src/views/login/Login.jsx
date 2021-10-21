@@ -23,12 +23,15 @@ const Login = () => {
 
             })
             resultUser.data.password = passRef.current.value
-            console.log(resultUser.data)            
-        
+            
+            if(resultUser.data.fotoPerfil) {
+                let resultImage = await axios.get(`/api/image/${resultUser.data.fotoPerfil}`)
+                console.log(resultImage)
+                resultUser.data.imagen = resultImage.data
+            }
+            console.log(resultUser.data)   
+            
             dispatch({type: "LOGIN_SUCCESS", payload: resultUser.data})
-       
-
-
         }
         catch(e) {
             console.log(e)

@@ -14,7 +14,6 @@ const Settings = () => {
     const [email, setEmail] = useState(user.email)
     const [password, setPassword] = useState(user.password)
     const [correctoMssg, setCorrectoMssg] = useState(false)
-    const [image, setImage] = useState({})
 
     // hace que según donde pinches en el post, es donde se abre la siguiente ventana. Esto evita hacer scroll
   /*   useEffect(() => {
@@ -54,12 +53,7 @@ const Settings = () => {
                 console.log(e)
             }
         }
-       /*  try {
-            let resultImage = await axios.get("/api/upload")
-            console.log(resultImage)
-        } catch (e) {
-            console.log(e)
-        } */
+
         try {
             await axios.put(`/api/users/${user._id}`, updateUsuario);
             setCorrectoMssg(true);
@@ -82,7 +76,7 @@ const Settings = () => {
                     <label htmlFor="">Foto de Perfil</label>
 
                     <div className="settingsProfilePicture">
-                        <img className="settingsImg" src={file ? URL.createObjectURL(file) :`img/uploads/${user.fotoPerfil}`} alt="foto avatar" />
+                        <img className="settingsImg" src={file ? URL.createObjectURL(file) :`data:${user.imagen.contentType};base64,${user.imagen.data}`} alt="foto avatar" />
                         <label htmlFor="fileInput">
                             <i className="settingsProfilePictureIcon far fa-user-circle"></i>
                         </label>

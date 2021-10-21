@@ -38,7 +38,7 @@ const TopBar = () => {
             <div className="topRight">
                 {user ?
                     <Link to="/configuracion">
-                        <img className="topImg" src={ `img/uploads/${user.fotoPerfil}`} alt="foto avatar" />
+                        <img className="topImg" src={`data:${user.imagen.contentType};base64,${user.imagen.data}`} alt="foto avatar" />
                     </Link>
                     :
                     (
