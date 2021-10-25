@@ -150,8 +150,8 @@ const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 
- app.use(express.static(path.join(__dirname, "../client/build")));
-// app.use(express.static(path.join(__dirname, "/client/build")));
+//  app.use(express.static(path.join(__dirname, "../client/build")));
+app.use(express.static(path.join(__dirname, "/client/build")));
 
 app.get("*", (req, res) =>
   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
@@ -160,7 +160,7 @@ app.get("*", (req, res) =>
 //Quitando la 'publicidad'
 //Express añade por defecto a todas las respuestas el header 'X-Powered-By: Express'
 //Cuantas menos indicaciones demos a posibles atacantes MEJOR
-//app.disable('x-powered-by')
+app.disable('x-powered-by')
 
 // arranca el servidor
 app.listen(port, host, () => {
