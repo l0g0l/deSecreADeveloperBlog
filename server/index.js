@@ -26,9 +26,9 @@ const port = process.env.PORT || 5000
 const host = process.env.HOST || '0.0.0.0'
 
 //Agregar body-parser para leer los datos del formulario. para que no pueda leer el body más de 5mb, si ocupara más se leería a mano req.on("data")
- app.use(express.json({
-   limit: '5mb'
- })); 
+app.use(express.json({
+  limit: '5mb'
+}));
 // app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(morgan('dev'));
 
 // desactivar el caché
-app.disable('etag'); 
+app.disable('etag');
 
 //inicializar Gridfs
 
@@ -153,7 +153,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 //  app.use(express.static(path.join(__dirname, "../client/build")));MIA
 //  app.use(express.static(path.join(__dirname, "/client/build")));BRO
-app.use(express.static(path.resolve(__dirname,"../client/build")));
+app.use(express.static(path.resolve(__dirname, "../client/build")));
 
 app.get("*", (req, res) =>
   // res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))BRO

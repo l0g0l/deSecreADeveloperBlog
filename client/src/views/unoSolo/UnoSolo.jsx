@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router'
+import { useParams } from 'react-router-dom'
 import Sidebar from "../../components/sidebar/SideBar"
 import PostDetalle from "../../components/postDetalle/PostDetalle"
 import axios from 'axios'
@@ -8,20 +8,21 @@ import './unosolo.css'
 const UnoSolo = () => {
   const [posts, setPosts] = useState([]) //guardamos en un array todos los posts
   // const location = useLocation()
-  const { search } = useLocation() //search es la propiedad que sale del cl de location añadiendo en la url de la home localhost:3000/?user=paquito, que es la query que llama en el back
-  // console.log(location)
-
+  const { postId } = useParams() 
+  console.log(postId)
   useEffect(() => {
       const fetchPosts = async () => {
-          const resultPosts = await axios.get(`/api/posts/${search}`) //añadir la /
+          const resultPosts = await axios.get(`/api/posts/${postId}`)
+          const resultImage = await axios.get(`/api/image/${resultPosts.data.foto}`)
+          resultPosts.data.image = resultImage.data
           setPosts(resultPosts.data) //guardamos todos los post en el state
          console.log(resultPosts)
         }
- 
 
+        
       fetchPosts()
      
-  }, [search])
+  }, [postId])
 
   return (
     <div className="single">
