@@ -19,23 +19,25 @@ Grid.mongo = mongoose.mongo
 
 const app = express()
 
-connectDB();
+connectDB()
 
 // Definimos el puerto. Al hacer el deploy, el port será el que asgine el depliegue, porque no se sabe cual estará disponible, al estar en local, la variable .env.port no existe, por tanto correremos sonre el puerto 4000
 const port = process.env.PORT || 5000
 const host = process.env.HOST || '0.0.0.0'
 
-//Agregar body-parser para leer los datos del formulario
-// app.use(express.json({
-//   limit: '5mb'
-// })); para que no pueda leer el body más de 5mb, si ocupara más se leería a mano req.on("data")
-app.use(express.json());
+//Agregar body-parser para leer los datos del formulario. para que no pueda leer el body más de 5mb, si ocupara más se leería a mano req.on("data")
+ app.use(express.json({
+   limit: '5mb'
+ })); 
+// app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 
 // para ver las rutas en los logs de node
 app.use(morgan('dev'));
 
+// desactivar el caché
+app.disable('etag'); 
 
 //inicializar Gridfs
 
@@ -151,11 +153,11 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 //  app.use(express.static(path.join(__dirname, "../client/build")));MIA
 //  app.use(express.static(path.join(__dirname, "/client/build")));BRO
-app.use(express.static("client/build"));
+app.use(express.static(path.resolve(__dirname,"..client/build")));
 
 app.get("*", (req, res) =>
   // res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))BRO
-  res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'))
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
 );
 
 //Quitando la 'publicidad'
