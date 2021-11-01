@@ -6,6 +6,7 @@ import './navbar.css'
 
 const TopBar = () => {
     const { user, dispatch } = useContext(Context)
+    console.log(user)
 
     const handleLogout = () => {
         dispatch({ type: "LOGOUT" })

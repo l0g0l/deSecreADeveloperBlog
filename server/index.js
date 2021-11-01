@@ -30,7 +30,7 @@ app.use(express.json({
   limit: '5mb'
 }));
 // app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true, limit: "5mb" }))
 
 
 // para ver las rutas en los logs de node
@@ -76,7 +76,9 @@ const storage = new GridFsStorage({
     })
   }
 })
-const upload = multer({ storage })
+const upload = multer({ storage,  limits: {
+  fileSize: 10000000 // Sensitive: 10MB is more than the recommended limit of 8MB
+} })
 
 app.post("/api/upload", upload.single("file"), (req, res) => {
   res.status(200).json("File has been uploaded")

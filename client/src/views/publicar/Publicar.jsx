@@ -1,6 +1,8 @@
 import { useState, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Context } from '../../context/Context.js'
+import Footer from '../../components/footer/Footer'
+
 import axios from 'axios'
 
 import './publicar.css'
@@ -122,11 +124,13 @@ const Publicar = () => {
                         onChange={e => setDescrip(e.target.value)}
                     >
                     </textarea>
-                    {mostrarError ? <span className="registerError">Algo ha fallado, compruebe que todos los campos están rellenos</span> : <span className="registerError">{guardarError}</span>}
+                    {mostrarError ? <span className="registerErrorPublish">Algo ha fallado, compruebe que todos los campos están rellenos</span> : <span className="registerErrorPublish">{guardarError}</span>}
                 </div>
                 <button className="writeSubmit" type="submit">Publicar</button>
             </form>
+            <Footer/>
         </div>
+        
     )
 }
 

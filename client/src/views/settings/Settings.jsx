@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-// import Sidebar from '../../components/sidebar/SideBar'
+import Footer from '../../components/footer/Footer'
 import { Context } from '../../context/Context.js'
 import axios from 'axios'
 
@@ -15,7 +15,7 @@ const Settings = () => {
     const [password, setPassword] = useState(user.password)
     const [correctoMssg, setCorrectoMssg] = useState(false)
 
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         dispatch({ type: "UPDATE_START" });
@@ -34,16 +34,16 @@ const Settings = () => {
             data.append("name", filename)
             data.append("file", file)
             console.log(data, ' soy el data del multer')
-            updateUsuario.fotoPerfil = filename 
-            const config = { 
-                headers : {
-                  'Content-Type': 'multipart/form-data'
+            updateUsuario.fotoPerfil = filename
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
                 }
-              }
+            }
 
             try {
                 await axios.post("/api/upload", data, config)
-                
+
             }
             catch (e) {
                 console.log(e)
@@ -61,47 +61,49 @@ const Settings = () => {
     };
 
     return (
-        <div className="settings">
-            <div className="settingsWrapper">
-                <div className="settingsTitle">
-                    <span className="settingsUpdateTitle">Actualiza tu cuenta</span>
-                    <span className="settingsDeleteTitle">Eliminar cuenta</span>
+        <>
+            <div className="settings">
+                <div className="settingsWrapper">
+                    <div className="settingsTitle">
+                        <span className="settingsUpdateTitle">Actualiza tu cuenta</span>
+                        <span className="settingsDeleteTitle">Eliminar cuenta</span>
 
-                </div>
-                <form action="" className="settingsForm" onSubmit={handleSubmit} >
-                    <label htmlFor="">Foto de Perfil</label>
-
-                    <div className="settingsProfilePicture">
-                        <img className="settingsImg" src={file ? URL.createObjectURL(file) :`data:${user.imagen.contentType};base64,${user.imagen.data}`} alt="foto avatar" />
-                        <label htmlFor="fileInput">
-                            <i className="settingsProfilePictureIcon far fa-user-circle"></i>
-                        </label>
-                        <input
-                            type="file"
-                            name="file"
-                            id="fileInput"
-                            accept=".jpg, .png, .jpeg"
-                            style={{ display: "none" }}
-                            onChange={e => setFile(e.target.files[0])}
-                        />
                     </div>
+                    <form action="" className="settingsForm" onSubmit={handleSubmit} >
+                        <label htmlFor="">Foto de Perfil</label>
 
-                    <label htmlFor="">Usuario</label>
-                    <input type="text" placeholder={user.usuario} onChange={e => setUsuario(e.target.value)} autocomplete="off"/>
+                        <div className="settingsProfilePicture">
+                            <img className="settingsImg" src={file ? URL.createObjectURL(file) : `data:${user.imagen.contentType};base64,${user.imagen.data}`} alt="foto avatar" />
+                            <label htmlFor="fileInput">
+                                <i className="settingsProfilePictureIcon far fa-user-circle"></i>
+                            </label>
+                            <input
+                                type="file"
+                                name="file"
+                                id="fileInput"
+                                accept=".jpg, .png, .jpeg"
+                                style={{ display: "none" }}
+                                onChange={e => setFile(e.target.files[0])}
+                            />
+                        </div>
 
-                    <label htmlFor="">Email</label>
-                    <input type="email" placeholder={user.email} onChange={e => setEmail(e.target.value)} autocomplete="off" />
+                        <label htmlFor="">Usuario</label>
+                        <input type="text" placeholder={user.usuario} onChange={e => setUsuario(e.target.value)} autocomplete="off" />
 
-                    <label htmlFor="">Password</label>
-                    <input type="password" placeholder="****" onChange={e => setPassword(e.target.value)} autocomplete="off"/>
+                        <label htmlFor="">Email</label>
+                        <input type="email" placeholder={user.email} onChange={e => setEmail(e.target.value)} autocomplete="off" />
 
-                    <input className="settingsSubmit" type="submit" value="Actualizar"/>
-                    {correctoMssg && <span style={{ color: "#000", textAlign: "center", marginTop: "20px" }}>Perfil actualizado correctamente</span>}
-                </form>
+                        <label htmlFor="">Password</label>
+                        <input type="password" placeholder="****" onChange={e => setPassword(e.target.value)} autocomplete="off" />
+
+                        <input className="settingsSubmit" type="submit" value="Actualizar" />
+                        {correctoMssg && <span style={{ color: "#000", textAlign: "center", marginTop: "20px" }}>Perfil actualizado correctamente</span>}
+                    </form>
+                </div>
+                {/* <Sidebar /> */}
             </div>
-            {/* <Sidebar /> */}
-
-        </div>
+            <Footer />
+        </>
     )
 }
 
