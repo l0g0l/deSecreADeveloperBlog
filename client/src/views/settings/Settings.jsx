@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState } from 'react'
 // import Sidebar from '../../components/sidebar/SideBar'
 import { Context } from '../../context/Context.js'
 import axios from 'axios'
@@ -15,10 +15,6 @@ const Settings = () => {
     const [password, setPassword] = useState(user.password)
     const [correctoMssg, setCorrectoMssg] = useState(false)
 
-    // hace que según donde pinches en el post, es donde se abre la siguiente ventana. Esto evita hacer scroll
-  /*   useEffect(() => {
-        window.scrollTo(0, 0)
-    }, []) */
     
     const handleSubmit = async (e) => {
         e.preventDefault()

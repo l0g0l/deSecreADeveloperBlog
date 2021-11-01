@@ -10,7 +10,6 @@ const Post = ({ post }) => {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const [image, setImage] = useState({})
 
-
     useEffect(() => {
         const fetchImages = async () => {
             
