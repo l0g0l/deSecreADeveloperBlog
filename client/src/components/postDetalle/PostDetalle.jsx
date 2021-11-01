@@ -1,6 +1,5 @@
-import { useLocation, useHistory } from 'react-router-dom'
+import { useLocation, useHistory, Link } from 'react-router-dom'
 import { useState, useContext } from 'react'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { Context } from '../../context/Context.js'
 import './postdetalle.css'
@@ -46,7 +45,6 @@ const PostDetalle = ({dataposts}) => {
             console.log(e)
         }
     }
-
 
     return (
         <div className="postDetalle">

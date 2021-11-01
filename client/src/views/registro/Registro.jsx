@@ -35,8 +35,8 @@ const Registro = () => {
             }
 
         }
-        catch (e) {
-            console.log(e)
+        catch (err) {
+            console.log(err)
             setMostrarError(true)
         }
     }

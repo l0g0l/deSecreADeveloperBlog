@@ -33,8 +33,8 @@ const Login = () => {
             
             dispatch({type: "LOGIN_SUCCESS", payload: resultUser.data})
         }
-        catch(e) {
-            console.log(e)
+        catch(err) {
+            console.log(err)
             dispatch({type: "LOGIN_FAILURE"})
         }
     }

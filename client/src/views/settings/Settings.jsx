@@ -45,8 +45,8 @@ const Settings = () => {
                 await axios.post("/api/upload", data, config)
 
             }
-            catch (e) {
-                console.log(e)
+            catch (err) {
+                console.log(err)
             }
         }
 
@@ -54,8 +54,8 @@ const Settings = () => {
             await axios.put(`/api/users/${user._id}`, updateUsuario);
             setCorrectoMssg(true);
             dispatch({ type: "UPDATE_SUCCESS", payload: updateUsuario });
-        } catch (e) {
-            console.log(e)
+        } catch (err) {
+            console.log(err)
             dispatch({ type: "UPDATE_FAILURE" });
         }
     };

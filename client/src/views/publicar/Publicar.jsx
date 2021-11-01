@@ -52,8 +52,8 @@ const Publicar = () => {
             try {
                 await axios.post("/api/upload", data, config)
             }
-            catch (e) {
-                console.log(e)
+            catch (err) {
+                console.log(err)
                 setMostrarError(true)
             }
           
@@ -70,9 +70,9 @@ const Publicar = () => {
 
             }
         }
-        catch (e) {
+        catch (err) {
             
-            console.log(e)
+            console.log(err)
             setMostrarError(true)
         }
     }

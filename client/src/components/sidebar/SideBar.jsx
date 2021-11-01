@@ -7,6 +7,14 @@ import './sidebar.css'
 const SideBar = () => {
     const [categ, setCateg] = useState([])
 
+      //Scroll to the Top, para navegar al comienzo de la pantalla
+      const scrollToTop = () => {
+        window.scrollTo({
+            top: 100,
+            behavior: "smooth"
+        });
+    };
+
     useEffect(() => {
         const muestraCateg = async () => {
             const resultCateg = await axios.get("/api/categories")
@@ -32,7 +40,7 @@ const SideBar = () => {
                 <ul className="sidebarList">
                     {categ.map((item) => {
                         return <Link to={`/?cat=${item.nombre}`} className="Link" key={item._id}>
-                            <li className="sidebarListItem">{item.nombre}</li>
+                            <li className="sidebarListItem" onClick={scrollToTop}>{item.nombre}</li>
                         </Link>
                     })}
 
