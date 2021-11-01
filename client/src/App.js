@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-// import React from 'react'
 import {useContext} from 'react'
 import {Context} from './context/Context.js'
 import Home from './views/home/Home'

@@ -161,10 +161,8 @@ app.get("*", (req, res) =>
   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
 );
 
-//Quitando la 'publicidad'
-//Express añade por defecto a todas las respuestas el header 'X-Powered-By: Express'
-//Cuantas menos indicaciones demos a posibles atacantes MEJOR
-//app.disable('x-powered-by')
+//Quitando la 'publicidad' Express añade por defecto a todas las respuestas el header 'X-Powered-By: Express'
+app.disable('x-powered-by')
 
 // arranca el servidor
 app.listen(port, host, () => {
