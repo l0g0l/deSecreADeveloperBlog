@@ -66,7 +66,7 @@ const Settings = () => {
                 <div className="settingsWrapper">
                     <div className="settingsTitle">
                         <span className="settingsUpdateTitle">Actualiza tu cuenta</span>
-                        <span className="settingsDeleteTitle">Eliminar cuenta</span>
+                        {/* <span className="settingsDeleteTitle">Eliminar cuenta</span> */}
 
                     </div>
                     <form action="" className="settingsForm" onSubmit={handleSubmit} >
