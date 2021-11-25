@@ -118,7 +118,7 @@ const Publicar = () => {
 
                 <div className="writeFormGroup">
                     <textarea
-                        className="writeInput writeText"
+                        className="writeInputArea writeText"
                         type="text"
                         placeholder="Cuenta tu historia..."
                         onChange={e => setDescrip(e.target.value)}

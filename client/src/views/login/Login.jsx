@@ -28,6 +28,10 @@ const Login = () => {
                 let resultImage = await axios.get(`/api/image/${resultUser.data.fotoPerfil}`)
                 console.log(resultImage)
                 resultUser.data.imagen = resultImage.data
+            }else {
+                let resultImage = await axios.get('/api/image/1637823076670usuario.png')
+                console.log(resultImage)
+                resultUser.data.imagen = resultImage.data
             }
             console.log(resultUser.data)   
             

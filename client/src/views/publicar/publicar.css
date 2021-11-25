@@ -1,11 +1,11 @@
 .write {
-  padding-top: 50px;
+  padding-top: 30px;
   font-family: "ABeeZee", sans-serif;
 }
 .writeImg {
   margin-left: 197px;
   width: 70vw;
-  height: 300px;
+  height: 250px;
   border-radius: 10px;
   object-fit: cover;
 }
@@ -37,7 +37,7 @@
   display: flex;
   justify-content: left;
   align-items: center;
-  margin-left: 331px;
+  margin-left: 240px;
   margin-top: 20px;
   padding-bottom: 10px;
   position: relative;
@@ -91,19 +91,22 @@ dos bordes con color y que giramos con transform: rotate(-45deg);
 }
 
 .writeInput {
-  width: 782px;
+  width: 895px;
   font-size: 30px;
   border: none;
   padding: 15px 18px;
   border-bottom: 1px solid #ccc;
+}
+.writeInputArea {
+  width: 816px;
+  height: 144px;
 }
 .writeInput:focus {
   outline: none;
 }
 .writeText {
   font-size: 20px;
-  height: 21vh;
-  margin-left: 27px;
+  margin-left: 43px;
   text-align: justify;
   outline: none;
   margin-bottom: 50px;
@@ -113,8 +116,8 @@ dos bordes con color y que giramos con transform: rotate(-45deg);
 }
 .writeSubmit {
   position: absolute;
-  top: 25px;
-  right: 198px;
+  top: 230px;
+  right: 191px;
   background-color: #008080;
   padding: 10px;
   border: none;

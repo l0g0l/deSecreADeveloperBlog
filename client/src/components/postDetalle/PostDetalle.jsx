@@ -4,12 +4,12 @@ import axios from 'axios'
 import { Context } from '../../context/Context.js'
 import './postdetalle.css'
 
-const PostDetalle = ({dataposts}) => {
+const PostDetalle = ({ dataposts }) => {
     console.log(dataposts)
-   
+
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-    const history = useHistory() 
+    const history = useHistory()
     const location = useLocation()
     // console.log(location.pathname.split("/")[2]) //cl de location nos da el pathname, de ahí le hacemos split desde la primera "/", el elemento [2], que es el id. Luego lo utilizaremos para 
     const path = location.pathname.split("/")[2]
@@ -18,9 +18,9 @@ const PostDetalle = ({dataposts}) => {
     const [titulo, setTitulo] = useState("")
     const [descrip, setDescrip] = useState("")
     const [update, setUpdate] = useState(false)
-   
 
-      const handleDelete = async () => {
+
+    const handleDelete = async () => {
         try {
 
             await axios.delete(`/api/posts/${path}`, {
@@ -49,12 +49,13 @@ const PostDetalle = ({dataposts}) => {
     return (
         <div className="postDetalle">
             <div className="postDetalleWrapper" >
-                {dataposts.foto && <img className="postDetalleImg" src={`data:${dataposts.image.contentType};base64,${dataposts.image.data}`} alt="" id="principio"/>}
+                {dataposts.foto && <img className="postDetalleImg" src={`data:${dataposts.image.contentType};base64,${dataposts.image.data}`} alt="" id="principio" />}
 
-                {update ? <input type="text" value={dataposts.titulo} className="postDetalleTitleInput" autoFocus onChange={(e) => setTitulo(e.target.value)} /> : (
-
-
-                    <h1 className="postDetalleTitle">
+                {update
+                    ?
+                    <input type="text" value={dataposts.titulo} className="postDetalleTitleInput" autoFocus onChange={(e) => setTitulo(e.target.value)} />
+                    :
+                    (<h1 className="postDetalleTitle">
                         {dataposts.titulo}
                         {dataposts.usuario === user?.usuario &&
                             <div className="postDetalleEdit">
@@ -63,7 +64,7 @@ const PostDetalle = ({dataposts}) => {
                             </div>
                         }
                     </h1>
-                )}
+                    )}
                 <div className="postDetalleInfo">
                     <span className="postDetalleAuthor">Autor:
                         <Link to={`/?user=${dataposts.usuario}`} className="Link">
@@ -73,13 +74,14 @@ const PostDetalle = ({dataposts}) => {
                     <span className="postDetalleDate">{new Date(dataposts.createdAt).toLocaleDateString('es-ES', options)}</span>
 
                 </div>
-                {update ? (<textarea
-                    className="postDetalleDescriptionInput"
-                    value={dataposts.descrip}
-                    onChange={(e) => setDescrip(e.target.value)}/>) : (
-
-                    <p className="postDetalleDescription">{dataposts.descrip} </p>
-                )}
+                {update
+                    ?
+                    (<textarea
+                        className="postDetalleDescriptionInput"
+                        onChange={(e) => setDescrip(e.target.value)}>{dataposts.descrip}</textarea>)
+                    :
+                    (<p className="postDetalleDescription">{dataposts.descrip} </p>
+                    )}
                 {update && (
 
                     <button className="postDetalleButton" onClick={handleUpdate}>Actualizar</button>

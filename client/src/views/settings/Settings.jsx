@@ -40,16 +40,16 @@ const Settings = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             }
-
             try {
                 await axios.post("/api/upload", data, config)
-
+                let resultImage = await axios.get(`/api/image/${updateUsuario.fotoPerfil}`)
+                console.log(resultImage)
+                updateUsuario.imagen = resultImage.data
             }
             catch (err) {
                 console.log(err)
             }
         }
-
         try {
             await axios.put(`/api/users/${user._id}`, updateUsuario);
             setCorrectoMssg(true);
