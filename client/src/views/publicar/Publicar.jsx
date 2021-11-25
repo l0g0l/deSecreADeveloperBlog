@@ -124,7 +124,11 @@ const Publicar = () => {
                         onChange={e => setDescrip(e.target.value)}
                     >
                     </textarea>
-                    {mostrarError ? <span className="registerErrorPublish">Algo ha fallado, compruebe que todos los campos están rellenos</span> : <span className="registerErrorPublish">{guardarError}</span>}
+                    {mostrarError 
+                        ? 
+                        <span className="registerErrorPublish">Algo ha fallado, compruebe que todos los campos están rellenos</span> 
+                        : 
+                        <span className="registerErrorPublish">{guardarError}</span>}
                 </div>
                 <button className="writeSubmit" type="submit">Publicar</button>
             </form>
