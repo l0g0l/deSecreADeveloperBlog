@@ -66,7 +66,7 @@ const Publicar = () => {
                 setGuardarError(result.data.message)
                 setTimeout(() => {
                     history.push("/")
-                }, 2000)
+                }, 1000)
 
             }
         }

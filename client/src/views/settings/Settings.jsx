@@ -27,13 +27,13 @@ const Settings = () => {
             password
         }
 
-        //multer en index. Para subir archivos
+        //multer en index. Para subir archivos en formato formulario, por eso multipart/form-data
         if (file) {
             const data = new FormData()
             const filename = Date.now() + file.name
             data.append("name", filename)
             data.append("file", file)
-            console.log(data, ' soy el data del multer')
+            // console.log(data, ' soy el data del multer')
             updateUsuario.fotoPerfil = filename
             const config = {
                 headers: {
@@ -42,7 +42,7 @@ const Settings = () => {
             }
             try {
                 await axios.post("/api/upload", data, config)
-                let resultImage = await axios.get(`/api/image/${updateUsuario.fotoPerfil}`)
+                let resultImage = await axios.get(`/api/image/${updateUsuario.fotoPerfil}`) //
                 console.log(resultImage)
                 updateUsuario.imagen = resultImage.data
             }

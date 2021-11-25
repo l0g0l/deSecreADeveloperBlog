@@ -50,15 +50,14 @@ conn.on("open", () => {
   });
 })
 
-// let gfs = Grid(conn, mongoose.mongo)
-//creamos un nuevo schema con el filename y el contentType
+//creamos un nuevo schema con el filename y el contentType para buscar sobre el schema upload.files
 let schema = new mongoose.Schema({ filename: { type: String }, contentType: { type: String } }, { strict: false })
 //utilizamos el model Schema con la colección uploads
 let grid_obj = mongoose.model('upload', schema, 'upload.files')
 
-//uso de multer para subir las fotos a la BBDD
+//uso de multer para subir ficheros a través del navegador y almacenarlos, en este caso en Gridfs
 
-//creamos el storage
+//creamos el storage del multer
 const storage = new GridFsStorage({
   url: process.env.MONGO_URL,
   file: (req, file) => {
@@ -75,21 +74,23 @@ const storage = new GridFsStorage({
     })
   }
 })
+//Middleware, el storage define el método de almacenamiento de multer
 const upload = multer({ storage,  limits: {
-  fileSize: 10000000 // Sensitive: 10MB is more than the recommended limit of 8MB
+  fileSize: 10000000 // Sensitive: 10MB limit 
 } })
-
+// Subimos la imagen
 app.post("/api/upload", upload.single("file"), (req, res) => {
   res.status(200).json("File has been uploaded")
-  console.log(req.body, 'soy el body')
-  console.log(req.file, 'soy el req.file')
+  // console.log(req.body, 'soy el body')
+  // console.log(req.file, 'soy el req.file')
 })
 // aqui termina el uso de multer
 
+
+///buscamos dentro del obj grid_obj la foto por parámetro filename
 app.get('/api/image/:filename', (req, res) => {
   console.log(grid_obj)
   console.log(req.params)
-  ///buscamos dentro del obj grid_obj la foto por parámetro filename
   grid_obj.findOne({ filename: req.params.filename }, (err, file) => { //file es un parámetro de la sintaxis de findOne
 
     //si no esxiste imagen
