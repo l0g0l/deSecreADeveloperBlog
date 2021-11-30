@@ -49,7 +49,7 @@ const SideBar = () => {
             <div className="sidebarItem">
                 <span className="sidebarTitle">SIGUEME</span>
                 <div className="sidebarSocial">
-                    <a href="https://twitter.com/OdiopensarNick?s=09" target="_blank" rel="noopener noreferrer"><i className="topIcon fab fa-twitter-square"></i></a>
+                    <a href="https://twitter.com/LuciaGWebDev" target="_blank" rel="noopener noreferrer"><i className="topIcon fab fa-twitter-square"></i></a>
                     <a href="https://www.facebook.com/luciag.lara" target="_blank" rel="noopener noreferrer"><i className="topIcon fab fa-facebook-square"></i></a>
                     <a href="https://www.linkedin.com/in/luciagonzalezlara/" target="_blank" rel="noopener noreferrer"><i class="topIcon fab fa-linkedin"></i></a>
                     <a href="https://github.com/l0g0l" target="_blank" rel="noopener noreferrer"><i className="topIcon fab fa-github-square"></i></a>
